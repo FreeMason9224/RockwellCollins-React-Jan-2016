@@ -10,13 +10,14 @@
 
   </head>
   <body>
-    <input type="button" value="Test" id="btnTest">
+    <input type="button" value="Render App" id="btnTest">
     <div id="content"></div>
     <script type="text/babel">
     $(function(){
       $("#btnTest").click(function(){
         ReactDOM.render(<Hello message={"Welcome to react!"}></Hello>, document.getElementById("content"));   
-      })
+        /*ReactDOM.render(<Spinner/>, document.getElementById("content"));   */
+      });
     });
 
     var Hello = React.createClass({
@@ -44,6 +45,34 @@
         }
     });
     
+    var Spinner = React.createClass({
+        getInitialState : function(){
+          return {
+            count : 0
+          };
+        },
+        increment : function(){
+            //this.state.count++;
+            this.setState({
+                count : ++this.state.count
+            });
+        },
+        decrement : function(){
+            //this.state.count--;
+            this.setState({
+                count : --this.state.count
+            });
+        },
+        render : function(){
+           return (
+              <div>
+                  <div>{this.state.count}</div>
+                  <input type="button" value="Increment" onClick={this.increment}></input>
+                  <input type="button" value="Decrement" onClick={this.decrement}></input>
+              </div>
+           )
+        }
+    })
     </script>
   </body>
 </html>
