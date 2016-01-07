@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>React - Introduction</title>
+    <script src="libs/react.js"></script>
+    <script src="libs/react-dom.js"></script>
+    <script src="libs/browser.js"></script>
+    <script src="libs/jquery.min.js"></script>
+
+  </head>
+  <body>
+    <input type="button" value="Test" id="btnTest">
+    <div id="content"></div>
+    <script type="text/babel">
+    $(function(){
+      $("#btnTest").click(function(){
+        ReactDOM.render(<Hello message={"Welcome to react!"}></Hello>, document.getElementById("content"));   
+      })
+    });
+
+    var Hello = React.createClass({
+        getInitialState : function(){
+            return {
+              message : 'Initial state'
+            };  
+        },
+        onDisplay : function(){
+            var name = this.refs.txtName.value;
+            this.setState({
+                message : 'Welcome ' + name
+            });
+        },
+        render : function(){
+          return (
+            <div>
+              <input type="text" ref="txtName" ></input>
+              <input type="button" value="Display" onClick={this.onDisplay}></input>
+              <div>
+                {this.state.message}
+              </div>
+            </div>
+          );
+        }
+    });
+    
+    </script>
+  </body>
+</html>
