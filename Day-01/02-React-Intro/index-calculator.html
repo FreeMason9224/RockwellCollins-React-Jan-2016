@@ -62,26 +62,26 @@
                 <div>
                     <div className="field">
                         <label htmlFor="">Basic :</label>
-                        <input type="text" name="" ref="txtBasic" value={this.state.calculator.basic} onChange={this.updateState}></input>
+                        <input type="text" name="" ref="txtBasic" defaultValue={this.state.calculator.basic} onChange={this.updateState}></input>
                     </div>
                     <div className="field">
                         <label htmlFor="">HRA :</label>
-                        <input type="text" name="" ref="txtHra" value={this.state.calculator.hra} onChange={this.updateState}></input>
+                        <input type="text" name="" ref="txtHra" defaultValue={this.state.calculator.hra} onChange={this.updateState}></input>
                     </div>
                     <div className="field">
                         <label htmlFor="">DA :</label>
-                        <input type="text" name="" ref="txtDa" value={this.state.calculator.da} onChange={this.updateState}></input>
+                        <input type="text" name="" ref="txtDa" defaultValue={this.state.calculator.da} onChange={this.updateState}></input>
                     </div>
                     <div className="field">
                         <label htmlFor="">Tax :</label>
-                        <input type="range" name="" ref="rangeTax" min="0" max="30" value={this.state.calculator.tax} onChange={this.updateState}></input>
-                        <span ref="spanTax">{this.state.tax}</span>
+                        <input type="range" name="" ref="rangeTax" min="0" max="30" defaultValue={this.state.calculator.tax} onChange={this.updateState}></input>
+                        <span ref="spanTax">{this.state.calculator.tax}</span>
                     </div>
                     <div className="field">
                         <input type="button" value="Calculate" ref="btnCalculate" onClick={this.onCalculate}></input>
                     </div>
                     <div className="field">
-                        <div ref="divResult">{this.state.calculator.salary}</div>
+                        <div id="divResult" ref="divResult">{this.state.calculator.salary}</div>
                     </div>
                 </div>
             )

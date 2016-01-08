@@ -7,29 +7,78 @@
     <script src="libs/react-dom.js"></script>
     <script src="libs/browser.js"></script>
     <script src="libs/jquery.min.js"></script>
-
+    <style>
+      .closed {
+        color : red;
+        text-decoration: line-through;
+        font-style: italic;
+        font-weight: bold;
+      }
+    </style>
   </head>
   <body>
     
     <div id="content"></div>
+
     <script type="text/babel">
+    var BugItem = React.createClass({
+      onToggleClick: function(e){
+        this.props.bug.isClosed = !this.props.bug.isClosed;
+        console.log(this.props.bug);
+        this.props.onUpdate();
+      },
+      render : function(){
+         var bug = this.props.bug;
+
+         var bugSpan = bug.isClosed ? 
+            <span className="closed">{bug.name} </span> 
+            : <span>{bug.name} </span>
+
+          return <li key={bug.id}>
+            {bugSpan}
+            <input type="button" value="Toggle Status" onClick={this.onToggleClick}/>
+          </li>
+      }
+    });
+
     var BugList = React.createClass({
       getInitialState : function(){
           return {
-            list : ["User authentication failure", "Server communication disconnects often"]
+            list : [
+              {id : 1, name :"User authentication failure", isClosed : false},
+              {id : 2, name : "Server communication disconnects often", isClosed : true}
+            ]
           };
         },
+      onbtnAddClick : function(){
+        var newBug = {
+          name : this.refs.txtBugName.value,
+          isClosed : false
+        };
+        this.state.list.push(newBug);
+        this.setState({
+          list : this.state.list
+        });
+      },
+      onUpdate : function(){
+        this.setState({
+           list : this.state.list
+        });
+      },
       render : function(){
-        return (
+        var bugItemList = this.state.list.map(function(bug){
+          return <BugItem bug={bug} key={bug.id}  onUpdate = {this.onUpdate}/> 
+        }.bind(this));
 
+        return (
           <div>
             <h1>Bug Tracker</h1>
             <hr/>
             <label htmlFor="">Bug :</label>
             <input type="text"  ref="txtBugName" />
-            <input type="button" value="Add" id="btnAdd" />
+            <input type="button" value="Add" id="btnAdd" onClick={this.onbtnAddClick}/>
             <ol>
-              <li>{this.state.list}</li>
+              {bugItemList}
             </ol>
           </div>
         )
